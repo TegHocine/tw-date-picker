@@ -3,10 +3,11 @@ import { useState } from 'react'
 import dayjs from 'dayjs'
 
 import { createArray } from '../../utils'
+import { ChevronButton } from '../button/ChevronButton'
+
+import './datePicker.css'
 
 const now = dayjs()
-
-const weekdaysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export const DatePicker = () => {
   const [date, setDate] = useState(now)
@@ -46,17 +47,26 @@ export const DatePicker = () => {
   }
 
   return (
-    <div>
-      <div>
-        <button onClick={() => prevYear()}>back</button>
-        <span>Year: {date.year()}</span>
-        <button onClick={() => nextYear()}>forward</button>
+    <div className='datePicker'>
+      <div className='datePicker__header'>
+        <div className='datePicker__header__year'>
+          <ChevronButton
+            left
+            onClick={prevYear}
+          />
+          <span>{date.year()}</span>
+          <ChevronButton onClick={nextYear} />
+        </div>
+        <div className='datePicker__header__month'>
+          <ChevronButton
+            left
+            onClick={prevMonth}
+          />
+          <span>{monthsShort[date.month()]}</span>
+          <ChevronButton onClick={prevMonth} />
+        </div>
       </div>
-      <div>
-        <button onClick={() => prevMonth()}>back</button>
-        <span>Month: {date.month()}</span>
-        <button onClick={() => nextMonth()}>forward</button>
-      </div>
+
       <div>days: {days}</div>
       <div>days: {weekdaysShort[date.day()]}</div>
 
@@ -72,3 +82,20 @@ export const DatePicker = () => {
     </div>
   )
 }
+
+const weekdaysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+const monthsShort = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+]

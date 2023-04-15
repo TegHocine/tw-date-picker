@@ -1,3 +1,18 @@
-.test {
-  color: red;
+@use '../../scss/' as *;
+.datePicker {
+  background-color: $background;
+  box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  border-radius: $rounded-md;
+  padding: 10px;
+  &__header {
+    @include flex(center, center);
+    &__year {
+      @include flex(center, center);
+      gap: 0.5rem;
+    }
+    &__month {
+      @include flex(center, center);
+      gap: 0.5rem;
+    }
+  }
 }
