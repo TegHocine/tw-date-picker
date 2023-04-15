@@ -1,3 +1,4 @@
+import './App.css'
 import { DatePicker } from './components/datePicker/DatePicker'
 
 function App() {
