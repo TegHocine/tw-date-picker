@@ -1,19 +1,46 @@
 import { useState } from 'react'
 
-import { createArray, getDaysInMonth } from '../../utils'
-import { Button } from '../button/Button'
+import dayjs from 'dayjs'
+
+import { createArray } from '../../utils'
+
+const now = dayjs()
+
+const weekdaysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export const DatePicker = () => {
-  const [date, setDate] = useState(new Date())
-  const [days, setDays] = useState(
-    getDaysInMonth(date.getFullYear(), date.getMonth())
-  )
+  const [date, setDate] = useState(now)
+  const [days, setDays] = useState(now.daysInMonth())
 
   const nextYear = () => {
     setDate((currentDate) => {
-      const newDate = currentDate
-      newDate.setFullYear(currentDate.getFullYear() + 1)
-      setDays(getDaysInMonth(newDate.getFullYear(), newDate.getMonth()))
+      const newDate = currentDate.add(1, 'year')
+      setDays(newDate.daysInMonth())
+      return newDate
+    })
+  }
+
+  const prevYear = () => {
+    setDate((currentDate) => {
+      const newDate = currentDate.subtract(1, 'year')
+      setDays(newDate.daysInMonth())
+      return newDate
+    })
+  }
+
+  const nextMonth = () => {
+    setDate((currentDate) => {
+      const newDate = currentDate.add(1, 'month')
+
+      setDays(newDate.daysInMonth())
+      return newDate
+    })
+  }
+
+  const prevMonth = () => {
+    setDate((currentDate) => {
+      const newDate = currentDate.subtract(1, 'month')
+      setDays(newDate.daysInMonth())
       return newDate
     })
   }
@@ -21,23 +48,25 @@ export const DatePicker = () => {
   return (
     <div>
       <div>
-        <Button label={'back'}></Button>
-        <span>Year: {date.getFullYear()}</span>
-        <Button
-          onClick={nextYear}
-          label='forward'
-        />
+        <button onClick={() => prevYear()}>back</button>
+        <span>Year: {date.year()}</span>
+        <button onClick={() => nextYear()}>forward</button>
+      </div>
+      <div>
+        <button onClick={() => prevMonth()}>back</button>
+        <span>Month: {date.month()}</span>
+        <button onClick={() => nextMonth()}>forward</button>
       </div>
       <div>days: {days}</div>
+      <div>days: {weekdaysShort[date.day()]}</div>
+
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(7, minmax(2rem, 2rem))'
         }}>
         {createArray(days).map((day) => (
-          <>
-            <div>{day}</div>
-          </>
+          <div key={day}>{day}</div>
         ))}
       </div>
     </div>
