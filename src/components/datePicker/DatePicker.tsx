@@ -63,7 +63,7 @@ export const DatePicker = () => {
             onClick={prevMonth}
           />
           <span>{monthsShort[date.month()]}</span>
-          <ChevronButton onClick={prevMonth} />
+          <ChevronButton onClick={nextMonth} />
         </div>
       </div>
 
@@ -73,6 +73,17 @@ export const DatePicker = () => {
       <div
         style={{
           display: 'grid',
+          gridTemplateColumns: 'repeat(7, minmax(2rem, 2rem))',
+          gap: '0.25rem'
+        }}>
+        {weekdaysShort.map((day) => (
+          <div key={day}>{day}</div>
+        ))}
+      </div>
+      <div
+        style={{
+          display: 'grid',
+          gap: '0.25rem',
           gridTemplateColumns: 'repeat(7, minmax(2rem, 2rem))'
         }}>
         {createArray(days).map((day) => (
