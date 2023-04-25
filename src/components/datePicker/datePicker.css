@@ -28,3 +28,14 @@
   justify-content: center;
   gap: 0.5rem;
 }
+.datePicker__content__container {
+  display: grid;
+  gap: 0.25rem;
+  grid-template-columns: repeat(7, minmax(2rem, 2rem));
+  place-content: center;
+}
+.datePicker__content__container__day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}/*# sourceMappingURL=datePicker.css.map */

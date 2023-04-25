@@ -15,4 +15,18 @@
       gap: 0.5rem;
     }
   }
+
+  &__content {
+    &__container {
+      display: grid;
+      gap: 0.25rem;
+      grid-template-columns: repeat(7, minmax(2rem, 2rem));
+      place-content: center;
+      &__day {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
 }

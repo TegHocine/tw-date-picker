@@ -69,27 +69,34 @@ export const DatePicker = () => {
 
       <div>days: {days}</div>
       <div>days: {weekdaysShort[date.day()]}</div>
+      <div className='datePicker__content'>
+        <div className='datePicker__content__container'>
+          {weekdaysShort.map((day) => (
+            <Days
+              key={day}
+              day={day}
+            />
+          ))}
+        </div>
+        <div className='datePicker__content__container'>
+          {createArray(days).map((day) => (
+            <Days
+              key={day}
+              day={day}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(7, minmax(2rem, 2rem))',
-          gap: '0.25rem'
-        }}>
-        {weekdaysShort.map((day) => (
-          <div key={day}>{day}</div>
-        ))}
-      </div>
-      <div
-        style={{
-          display: 'grid',
-          gap: '0.25rem',
-          gridTemplateColumns: 'repeat(7, minmax(2rem, 2rem))'
-        }}>
-        {createArray(days).map((day) => (
-          <div key={day}>{day}</div>
-        ))}
-      </div>
+const Days = ({ day }: { day: string | number }) => {
+  return (
+    <div
+      key={day}
+      className='datePicker__content__day'>
+      {day}
     </div>
   )
 }
