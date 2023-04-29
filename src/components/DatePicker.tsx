@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import dayjs from 'dayjs'
 
-import { createArray } from '../../utils'
-import { ChevronButton } from '../button/ChevronButton'
-
-import './datePicker.css'
+import { createArray, leftPadArray } from '../utils'
+import { ChevronButton } from './ChevronButton'
+import { WeekDay } from './WeekDay'
+import { Day } from './Day'
 
 const now = dayjs()
 
@@ -53,19 +53,19 @@ export const DatePicker = () => {
     })
   }
 
-  console.log(date.startOf('M'))
+  const firstDay = date.startOf('month').day()
   return (
     <>
       <div>
         <div>{date.format('DD/MM/YYYY')}</div>
         <div>days: {days}</div>
         <div>days: {weekdaysShort[date.day()]}</div>
-        <div>days: {}</div>
+        <div>days: {firstDay}</div>
       </div>
 
-      <div className='datePicker'>
-        <div className='datePicker__header'>
-          <div className='datePicker__header__month'>
+      <div className='bg-stone-100 text-stone-950 rounded-md p-2 text-xs font-medium border border-stone-200 shadow-md h-fit w-fit overflow-hidden'>
+        <div className='flex items-center justify-center'>
+          <div className='flex items-center justify-center gap-2'>
             <ChevronButton
               left
               onClick={prevMonth}
@@ -74,21 +74,21 @@ export const DatePicker = () => {
             <ChevronButton onClick={nextMonth} />
           </div>
         </div>
-
-        <div className='datePicker__content'>
-          <div className='datePicker__content__container'>
-            {weekdaysShort.map((day) => (
-              <Days
-                key={day}
-                day={day}
+        <div className='h-[calc(1.5rem*7)] w-full'>
+          <div className='grid grid-cols-week'>
+            {weekdaysShort.map((weekDay, index) => (
+              <WeekDay
+                key={`${weekDay}${index}`}
+                weekDay={weekDay}
               />
             ))}
           </div>
-          <div className='datePicker__content__container'>
-            {createArray(days).map((day) => (
-              <Days
-                key={day}
+          <div className='grid grid-cols-week'>
+            {leftPadArray(createArray(days), firstDay).map((day, index) => (
+              <Day
+                key={`${day}${index}`}
                 day={day}
+                isActive={date.date() === day}
                 onClick={() => handleChangeMonth(day)}
               />
             ))}
@@ -99,24 +99,7 @@ export const DatePicker = () => {
   )
 }
 
-const Days = ({
-  day,
-  onClick
-}: {
-  day: string | number
-  onClick?: () => void
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      key={day}
-      className='datePicker__content__container__day'>
-      {day}
-    </button>
-  )
-}
-
-const weekdaysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const weekdaysShort = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
 const monthsShort = [
   'Jan',

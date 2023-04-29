@@ -1,9 +1,9 @@
 import './App.css'
-import { DatePicker } from './components/datePicker/DatePicker'
+import { DatePicker } from './components/DatePicker'
 
 function App() {
   return (
-    <div className='App'>
+    <div className='h-screen bg-stone-50 text-stone-950 flex items-center justify-center flex-col gap-4'>
       <DatePicker />
     </div>
   )
