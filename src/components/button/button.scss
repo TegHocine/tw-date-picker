@@ -2,9 +2,7 @@
 
 .chevronButton {
   @include flex(center, center);
-
-  height: $button-height;
-  width: $button-height;
+  padding: 0.2rem;
   background-color: $background;
   color: $text;
   border-radius: $rounded-full;
@@ -16,8 +14,8 @@
   }
   svg {
     @include flex(center, center);
-    width: 100%;
-    height: 100%;
+    height: 0.5rem;
+    width: 0.5rem;
   }
 }
 
