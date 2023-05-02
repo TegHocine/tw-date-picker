@@ -6,7 +6,7 @@ export const ChevronButton = ({ onClick, left }: Button) => {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center justify-center p-1 border border-stone-100 hover:border-stone-950  rounded-full ${
+      className={`flex items-center justify-center p-1 hover:bg-stone-300 rounded-full ${
         left && 'rotate-180'
       }`}>
       <svg
